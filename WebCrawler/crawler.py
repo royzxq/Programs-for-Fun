@@ -1,7 +1,8 @@
 from page_crawler import page_crawler
-from threading import BoundedSemaphore, Thread
+from threading import BoundedSemaphore
 import splite3 as lite
 import sys
+from multiprocessing import Process, Queue
 
 class task:
 	"""docstring for task"""
@@ -39,20 +40,18 @@ class TaskQueue:
 		
 
 
-class Crawler(Thread):
+class Crawler(Process):
 	"""docstring for Crawler"""
-	def __init__(self, taskQueue, TaskLock, PageQueue, PageLock, event, db):
+	def __init__(self, taskQueue, PageQueue, event, db):
 		# super(Thread,self).__init__(self)
-		Thread.__init__(self)
+		Process.__init__(self)
 		self.TaskQueue = taskQueue
-		self.TaskLock = TaskLock
 		self.PageQueue = PageQueue
-		self.PageLock = PageLock
 		self.event = event
 
 		self.crawler = page_crawler()
-		self.doneTask = TaskQueue(None)
-		self.donePage = TaskQueue(None)
+		self.doneTask = Queue()
+		self.donePage = Queue()
 		self.db = db
 		try:
 			self.cur = self.db.cursor()
@@ -69,25 +68,26 @@ class Crawler(Thread):
 	def run(self):
 		while True:
 			self.event.wait()
-			with self.TaskLock:
-				task = self.TaskQueue.get()
-				task.state = "working"
+			# with self.TaskLock:
+			task = self.TaskQueue.get()
+			task.state = "working"
 			page = self.crawler.getPage(task.url)
 			if task.type == "list":
-				with self.TaskLock:
-					for newTask in page:
-						self.TaskQueue.add(newTask)
-					task.state = "done"
-					self.doneTask.add(task)
+				for newTask in page:
+					self.TaskQueue.put(task(newTask))
+				task.state = "done"
+				self.TaskQueue.task_done()
+				self.doneTask.add(task)
+				self.event.set()
 			elif page:
-				with self.PageLock:
-					self.PageQueue.add(page)
-					self.cur.execute('insert into PAGE(URL, CONTENT) VALUES(:URL, :CONTENT)',{"URL": task.url, "CONTENT":page})
-					self.db.commit
-				with self.TaskLock:
-					task.state = "done"
-					self.doneTask.add(task)
+				self.PageQueue.add(page)
+				self.cur.execute('insert into PAGE(URL, CONTENT) VALUES(:URL, :CONTENT)',{"URL": task.url, "CONTENT":page})
+				self.db.commit
+				task.state = "done"
+				self.TaskQueue.task_done()
+				self.doneTask.add(task)
 			if self.TaskQueue.numOfNewTasks == 0:
+				self.event.clear()
 				return
 
 
