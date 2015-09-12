@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/QAPage">
+<head>
+
+<title>python - in this Semaphore example ,Is it necessary to lock for refill() and buy()? - Stack Overflow</title>
+    <link rel="shortcut icon" href="//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=6cd6089ee7f6">
+    <link rel="apple-touch-icon image_src" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=ea71a5211a91&a" />
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="in this Semaphore example ,Is it necessary to lock for refill() and buy()?" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="in this Semaphore example ,Is it necessary to lock for refill() and buy() ?
+
+the Book said :
+The refill() function is performed when the owner of the fictitious vend-
+ing machines comes to add one ..." />
+    <meta property="og:url" content="http://stackoverflow.com/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy"/>
+    <link rel="canonical" href="http://stackoverflow.com/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" />
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//cdn.sstatic.net/Js/stub.en.js?v=6b58a8a5197b"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.sstatic.net/stackoverflow/all.css?v=c38d7643caf1">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;in this Semaphore example ,Is it necessary to lock for refill() and buy()?&#39;" href="/feeds/question/15651128">
+            <meta name="twitter:app:country" content="US" />
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:iphone" content="871299723" />
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" />
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:ipad" content="871299723" />
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" />
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:15651128});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '15651128');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1441953341,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"globalAuthDisabled":true,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"2690ec24892885432c57f4951d88c719","isAnonymous":true,"ab":{"topbar_next_achievement":{"v":"a","g":1},"anon_popups":{"v":"a","g":2}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"531607529e19","js/moderator.en.js":"c10ac45de559","js/full-anon.en.js":"4082c4669b93","js/full.en.js":"6b0cf58556b5","js/wmd.en.js":"bf775e6d3113","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"6aa70862e9c3","js/help.en.js":"1b032ba0392d","js/tageditor.en.js":"c84618a71b61","js/tageditornew.en.js":"6a30dffaab14","js/inline-tag-editing.en.js":"de80429b1816","js/revisions.en.js":"9e897f24d78d","js/review.en.js":"b3f0d5e85a05","js/tagsuggestions.en.js":"d1ff9b84abe5","js/post-validation.en.js":"7c48822b4f66","js/explore-qlist.en.js":"cd6e5274146c","js/events.en.js":"d1a0a39018e0","js/keyboard-shortcuts.en.js":"2e257ad32c58","js/external-editor.en.js":"d950ed54074b","js/external-editor.en.js":"d950ed54074b","js/snippet-javascript.en.js":"de8a8912991d","js/snippet-javascript-codemirror.en.js":"00ccf782a961"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+    
+    
+</head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="//stackoverflow.com">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:6 })"
+>chat</a>
+                    <a href="http://blog.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:7 })"
+>blog</a>
+            </div>
+
+
+
+
+    <a href="//stackoverflow.com"
+       class="current-site-link site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="552"
+       data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track"
+                       href="//careers.stackoverflow.com?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider"
+                            data-gps-track="site_switcher.click({ item_type:9 })"
+>
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:10 })"
+>Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:11 })"
+>log in</a> to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="//stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="//stackexchange.com"
+               class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track"
+               data-gps-track="site_switcher.show"
+               title="A list of all 150 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" class="login-link">log in</a>
+
+                        <a href="/tour">tour</a>
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="//meta.stackoverflow.com" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                            <a href="//careers.stackoverflow.com?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=anon-topbar">stack overflow careers</a>
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/" >
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+                <div id="system-message-temp">
+                    <script>
+                        var curSystemMessage = 'Ten. Million. Questions. Let\'s celebrate <a href="\/10m">all we\'ve done together<\/a>.';
+                        $('#system-message-temp').html(curSystemMessage).attr('id', 'system-message');
+                    </script>
+                </div>
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope itemtype="http://schema.org/Question">
+    <link itemprop="image" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="/tour" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">&times;</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for professional and enthusiast programmers. It&#39;s 100% free.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/", expires: 365 });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+                <h1 itemprop="name"><a href="/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy" class="question-hyperlink">in this Semaphore example ,Is it necessary to lock for refill() and buy()?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="15651128"  id="question">
+
+    <div class="everyonelovesstackoverflow" id="careers1">
+        </div>    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="15651128">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b>1</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+<p>in this Semaphore example ,Is it necessary to lock for refill() and buy() ?</p>
+
+<p>the Book said :
+The refill() function is performed when the owner of the fictitious vend-
+ing machines comes to add one more item to inventory. The entire routine
+represents a critical section; this is why acquiring the lock is the only way
+to execute all lines.</p>
+
+<p>but I think it is ot necessary to lock for refill() and buy() 
+what about your opinion ?</p>
+
+<pre><code>#!/usr/bin/env python
+
+from atexit import register
+from random import randrange
+from threading import BoundedSemaphore, Lock, Thread
+from time import sleep, ctime
+
+lock = Lock()
+MAX = 5
+candytray = BoundedSemaphore(MAX)
+
+def refill():
+   # lock.acquire()
+    try:
+        candytray.release()
+    except ValueError:
+        pass
+    #lock.release()
+
+def buy():
+
+    #lock.acquire()
+    candytray.acquire(False)
+    #lock.release()
+
+def producer(loops):
+    for i in range(loops):
+        refill()
+        sleep(randrange(3))
+
+def consumer(loops):
+    for i in range(loops):
+        buy()
+        sleep(randrange(3))
+
+def _main():
+    print('starting at:', ctime())
+    nloops = randrange(2, 6)
+    print('THE CANDY MACHINE (full with %d bars)!' % MAX)
+    Thread(target=consumer, args=(randrange(nloops, nloops+MAX+2),)).start() # buyer
+    Thread(target=producer, args=(nloops,)).start() # vendor
+
+@register
+def _atexit():
+    print('all DONE at:', ctime())
+
+if __name__ == '__main__':
+    _main()
+</code></pre>
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/python" class="post-tag" title="show questions tagged &#39;python&#39;" rel="tag">python</a> <a href="/questions/tagged/python-3.x" class="post-tag" title="show questions tagged &#39;python-3.x&#39;" rel="tag">python-3.x</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/15651128" title="short permalink to this question" class="short-link" id="link-post-15651128">share</a><span class="lsep">|</span><a href="/posts/15651128/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-03-27 02:50:43Z" class="relativetime">Mar 27 '13 at 2:50</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1485853/imath"><div class="gravatar-wrapper-32"><img src="https://i.stack.imgur.com/PnmpQ.png?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1485853/imath">iMath</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">467</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="23 bronze badges"><span class="badge3"></span><span class="badgecount">23</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15651128" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15651128" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>        </table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								3 Answers
+                                <span style="display:none;" itemprop="answerCount">3</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active">active</a>
+        <a href="/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest">oldest</a>
+        <a class="youarehere" href="/questions/15651128/in-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="15651370"></a>
+<div id="answer-15651370" class="answer" data-answerid="15651370"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="15651370">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">1</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>A lock is absolutely necessary. Perhaps it will help if you changed the code a little to print the number of candies left after each producer/consumer call. Replaced semaphore because all it was doing was keeping a count.</p>
+
+<p>I added </p>
+
+<pre><code>numcandies = 5  
+</code></pre>
+
+<p>For refill: </p>
+
+<pre><code>def refill():
+    global numcandies
+    numcandies += 1
+    print ("Refill: %d left" % numcandies) 
+</code></pre>
+
+<p>For buy: </p>
+
+<pre><code>def buy():
+    global numcandies
+    numcandies -= 1
+    print("Buy: %d left" %numcandies)
+</code></pre>
+
+<p>Here's the output without locks (which shows data race issue).</p>
+
+<pre><code>('starting at:', 'Tue Mar 26 23:09:41 2013')
+THE CANDY MACHINE (full with 5 bars)!
+Buy: 4 left
+Refill: 5 left
+Refill: 6 left
+Buy: 5 left
+Buy: 4 left
+Buy: 3 left
+Refill: 6 left
+Refill: 7 left
+Buy: 6 left
+('all DONE at:', 'Tue Mar 26 23:09:43 2013')
+</code></pre>
+
+<p>Somewhere between the call of <code>producer</code> and the actual update of the <code>numcandies</code> counter, we had 2 successive calls to <code>consumer</code>. </p>
+
+<p>Without locking, there is no control over the order of who actually modifies the counter. So in the above case, even though <code>numcandies</code> was updated to 3 buy <code>consumer</code>, the <code>producer</code> still has a local copy of 5. After updating, it sets the counter to 6, which is completely wrong. </p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/15651370" title="short permalink to this answer" class="short-link" id="link-post-15651370">share</a><span class="lsep">|</span><a href="/posts/15651370/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/15651370/revisions" title="show all edits to this post">edited <span title="2013-03-27 03:27:13Z" class="relativetime">Mar 27 '13 at 3:27</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-03-27 03:20:51Z" class="relativetime">Mar 27 '13 at 3:20</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/638127/zz3599"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/60293d88c7697c55249ede709a4850b5?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/638127/zz3599">zz3599</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">533</span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15651370" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15651370" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like â€œ+1â€ or â€œthanksâ€."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+<div class="everyonelovesstackoverflow" id="careers3">
+        </div>
+  
+<a name="15651314"></a>
+<div id="answer-15651314" class="answer" data-answerid="15651314"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="15651314">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Of course it's critical section - you have to lock it. Uncomment those commented lines.</p>
+
+<p><code>candytray</code> is a resource for which are threads struggling. There is the rule about independence of tasks: Two tasks are independent if they don't have the same codomain AND first's domain NOT EQUALS second's codomain AND second's domain NOT EQUALS first's codomain. It means that, two tasks only may READ from one memory / variable / etc.</p>
+
+<p>In your case, if <code>candytray</code> is implemented as some queue, you don't need to lock, because "writer" puts data on, let's say, left side, and "reader" reads from right side. So, their domains and codomains not equal and that task are independent.
+But, if it is not queue, if it is some, let's say heap, then writer's codomain interfere with reader's domain. They are dependent then and you need to lock.</p>
+
+<h1>edit</h1>
+
+<p>as you can see, I talked from theoretical aspect, not Python's aspect. But I guess you wanted that.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/15651314" title="short permalink to this answer" class="short-link" id="link-post-15651314">share</a><span class="lsep">|</span><a href="/posts/15651314/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-03-27 03:14:23Z" class="relativetime">Mar 27 '13 at 3:14</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/2157739/ceruleus"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/fcbce6e61adba178a9d91dd4c158401c?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/2157739/ceruleus">ceruleus</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">481</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="11 bronze badges"><span class="badge3"></span><span class="badgecount">11</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15651314" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15651314" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like â€œ+1â€ or â€œthanksâ€."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="15651339"></a>
+<div id="answer-15651339" class="answer" data-answerid="15651339"  itemscope itemtype="http://schema.org/Answer">
+
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="15651339">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>The <a href="http://my.safaribooksonline.com/book/programming/python/9780132779371/multithreaded-programming/ch04lev1sec7" rel="nofollow">original code</a>, from Wesley Chun's book <em>Core Python Applications Programming</em> looked like this:</p>
+
+<pre><code>def refill():
+    lock.acquire()
+    print 'Refilling candy...',
+    try:
+        candytray.release()
+    except ValueError:
+        print 'full, skipping'
+    else:
+        print 'OK'
+    lock.release()
+
+def buy():
+    lock.acquire()
+    print 'Buying candy...',
+    if candytray.acquire(False):
+        print 'OK'
+    else:
+        print 'empty, skipping'
+    lock.release()
+</code></pre>
+
+<p>Without the <code>lock</code>, the print statements can become interwoven into unintelligible output. For example, suppose the candy tray is full. Then suppose there is a call to <code>refill</code> followed by a call to <code>buy</code> such that the lines of code get executed in this order (without the lock):</p>
+
+<pre><code>print 'Refilling candy...',
+
+print 'Buying candy...',    
+
+try:
+    candytray.release()
+
+if candytray.acquire(False):
+    print 'OK'
+
+except ValueError:
+    print 'full, skipping'
+</code></pre>
+
+<p>The output would look like this:</p>
+
+<pre><code>                   # we start with 5 candy bars (full tray)
+Refilling candy... # oops... tray is full
+Buying candy...    
+OK                 # So now there are 4 candy bars
+full, skipping     # huh?
+</code></pre>
+
+<p>That would not make sense, so a lock is required.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/15651339" title="short permalink to this answer" class="short-link" id="link-post-15651339">share</a><span class="lsep">|</span><a href="/posts/15651339/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-03-27 03:17:13Z" class="relativetime">Mar 27 '13 at 3:17</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/190597/unutbu"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/dd069899166bba0f0e53d3097452b00b?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/190597/unutbu">unutbu</a><br>
+        <span class="reputation-score" title="reputation score 303446" dir="ltr">303k</span><span title="30 gold badges"><span class="badge1"></span><span class="badgecount">30</span></span><span title="484 silver badges"><span class="badge2"></span><span class="badgecount">484</span></span><span title="629 bronze badges"><span class="badge3"></span><span class="badgecount">629</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15651339" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15651339" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like â€œ+1â€ or â€œthanksâ€."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+									<a name='new-answer'></a>
+						<form id="post-form" action="/questions/15651128/answer/submit" method="post"  class="post-form">
+						    <input type="hidden" id="post-id" value="15651128" />
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" />
+                            <input type="hidden" name="referrer" value=""/>
+							<h2 class="space">Your Answer</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                ,immediatelyShowMarkdownHelp:true
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="2690ec24892885432c57f4951d88c719">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item dno new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="/users/login?ssrc=question_page&returnurl=%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                                    
+                                var $window = $(window),
+                                    onScroll = function(e) {
+                                        var $elem = $('.new-login-left'),
+                                            docViewTop = $window.scrollTop(),
+                                            docViewBottom = docViewTop + $window.height(),
+                                            elemTop = $elem.offset().top,
+                                            elemBottom = elemTop + $elem.height();							
+                                        if ((docViewTop < elemTop) && (docViewBottom > elemBottom))  {
+                                            StackExchange.using('gps', function() { StackExchange.gps.track('embedded_signup_form.view', { location: 'question_page' }); });
+                                            $window.unbind('scroll', onScroll);
+                                        }
+                                    };
+                                $window.on('scroll', onScroll);
+                                    
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid" />
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false" />
+                    <input type="hidden" name="use-google" class="use-google" value="false" />
+                    <input type="button" class="submit-openid" value="Submit" style="display:none" />
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f15651128%2fin-this-semaphore-example-is-it-necessary-to-lock-for-refill-and-buy%23new-answer', 'question_page');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href='http://stackexchange.com/legal/privacy-policy' target='_blank'>privacy policy</a> and <a href='http://stackexchange.com/legal/terms-of-service' target='_blank'>terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1" />								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you&#39;re looking for?							Browse other questions tagged <a href="/questions/tagged/python" class="post-tag" title="show questions tagged &#39;python&#39;" rel="tag">python</a> <a href="/questions/tagged/python-3.x" class="post-tag" title="show questions tagged &#39;python-3.x&#39;" rel="tag">python-3.x</a>  or <a href="/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2013-03-27 02:50:43Z"><b>2 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>1688 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2013-03-27 03:27:13Z">2 years ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </table>
+			    </div>
+						
+			<div class="everyonelovesstackoverflow" id="careers2">
+        </div>
+        <div id="hireme">
+            <script>
+window.careers_adurl="//careers.stackoverflow.com/gethired/companyjs",window.careers_cssurl="//cdn-careers.sstatic.net/careers/gethired/company.min.css?v=b7dd614a01cc",window.careers_cssurl2="//cdn-careers.sstatic.net/careers/gethired/sidebar.min.css?v=19f7c7921388",window.careers_adselector="#hireme",StackExchange.ready(function(){var e="//cdn-careers.sstatic.net/careers/gethired/company-loader.min.js?v=11c25765cde5";$.ajax({url:e,dataType:"script",cache:!1})});(function(){function f(n){var t=i.createElement("link");t.type="text/css";t.rel="stylesheet";t.href=n;r.appendChild(t)}function e(t,r,f,e){var s=(r.cl||[]).join(" "),o=i.getElementById(t);o&&(s&&(o.className+=" "+s),o.innerHTML=r.cn.replace("&pt=0","&pt="+(e||"0")),o.onmousedown=function(t){for(var i=t.target,e,s,h,c,l;i.tagName!=="A"&&i!==o;)i=i.parentNode;if(i!=o){for(e=n.enc,s=f,h=0;h<i.attributes.length;++h)c=i.attributes[h],l=c.name.match(/^data-(.*)$/),l&&(s+="&"+e(l[1])+"="+e(c.value));s+="&utm="+e(u+r.utm);i.href=s}})}function o(){return[].map.call(n.qsa(".post-taglist .post-tag"),function(n){return n.innerText}).join(";")||null}var t=window,i=document,r=i.getElementsByTagName("head")[0],u="&utm_source="+location.hostname+"&utm_medium=ad&utm_campaign=",n={doc:i,head:r,enc:encodeURIComponent,dec:decodeURIComponent,se:t.StackExchange,ts:function(){return(new Date).getTime()},st:setTimeout,ct:clearTimeout,qsa:function(n){return document.querySelectorAll(n)}};n.ls=function(n,t,u){var f=i.createElement("script"),e=!1;f.async=!0;f.src=n;t&&(f.onload=f.onreadystatechange=function(){e||this.readyState&&this.readyState!=="loaded"&&this.readyState!=="complete"||(e=!0,t(f),f.onload=f.onreadystatechange=null,u&&f.parentNode.removeChild(f))});r.appendChild(f)};n.init=function(i){function s(){i.st.forEach(f);r.forEach(function(n){e(n,i.cr[n],u,o)});typeof t.clc_after_init=="function"&&t.clc_after_init()}var r=Object.keys(i.cr),u="//"+i.h+i.ct+"?an="+i.an,o=n.cps?n.ts()-n.cps:0;s()};n.lo=function(i){var u,f=t.location.hash,s=n.dec,r=n.se,e;i=i||{};switch(f){case"#large":opts.l=1;break;case"#abort":opts.abort=1;break;default:f.length>0&&f.substr(1).split("&").forEach(function(n){var t=n.split("=",2);this[s(t[0])]=s(t[1])},i)}return e=i.ac||i.accountid||r&&r.options&&r.options.user&&r.options.user.accountId,e&&(i.ac=e),i.tags||(u=o(),u&&(i.tags=u)),i};n.o2q=function(t,i){var r=n.enc;return Object.keys(t).filter(function(n){return i.indexOf(n)!==-1}).map(function(n){return r(n)+"="+r(t[n])}).join("&")};n.load=function(i,r,u){n.ls(i+"?"+n.o2q(r,u),function(){typeof t.clc_loaded=="function"&&t.clc_loaded()});n.cps=n.ts()};n.el=function(t){var i=n.qsa(t);return i.length>0?i[0]:null};n.hc=function(n){return n&&n.innerHTML&&n.innerHTML.replace(/\s+/g,"").length>0};n.wfc=function(t,i,r,u){function c(){n.hc(s)?(f(o),f(e),u(!0)):e=h(c,i)}function l(){f(e);u(!1)}var s=n.el(t),h=n.st,f=n.ct,o,e;if(s!==null)return c(),r&&(o=h(l,r)),function(){e&&f(e);o&&f(o)}};t.clc=n})();;(function(n){var r=window,t=r.clc,i=t.lo({d:"hireme",lt:"careers1",lb:"careers3"});i.abort||t.load(n.adurl,i,["d","lt","lb","ip","ac","eng","prov","tags","theme","cp"])}).call(null, {"adurl":"//clc.stackoverflow.com/cp/p.js"});            </script>
+        </div>
+			<div style="margin-bottom: 10px;">
+        
+
+<style type="text/css">
+#newsletter-ad {
+    width: 190px;
+    height: 250px;
+    overflow: hidden;
+    background: url('//cdn.sstatic.net/stackoverflow/img/newsletter-ad.png');
+    padding: 0 15px 0 15px;
+}
+#newsletter-ad-header {
+    margin-top: 60px;
+}
+#newsletter-ad ul {
+    margin: 1em 0 1em 1.5em;
+}
+#newsletter-ad ul li {
+    margin-bottom: 5px;
+}
+#newsletter-signup-container {
+    text-align: center;
+}
+#newsletter-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+#newsletter-email-input {
+    width: 200px;
+}
+</style>
+
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+</script>
+
+<div id="newsletter-ad">
+    <p id="newsletter-ad-header">Get the <b>weekly newsletter!</b></p>
+    <ul>
+        <li>Top questions and answers</li>
+        <li>Important announcements</li>
+        <li>Unanswered questions</li>
+    </ul>
+    <div id="newsletter-signup-container"><input id="newsletter-signup" type="button" value="Sign up for the newsletter" /></div>
+    <p id="newsletter-preview-container">see an <a href="http://stackexchange.com/newsletters/newsletter?site=stackoverflow.com" id="newsletter-preview">example newsletter</a></p>
+    <div class="dno">
+        
+<p class="privacy-policy-agreement">
+By subscribing, you agree to the <a href='http://stackexchange.com/legal/privacy-policy' target='_blank'>privacy policy</a> and <a href='http://stackexchange.com/legal/terms-of-service' target='_blank'>terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1" />
+    </div>
+</div>
+
+    </div>  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer">
+<a href="/q/273192" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">1143
+    </div>
+</a><a href="/questions/273192/in-python-check-if-a-directory-exists-and-create-it-if-necessary" class="question-hyperlink">In Python, check if a directory exists and create it if necessary</a>
+</div>
+<div class="spacer">
+<a href="/q/1238606" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">25
+    </div>
+</a><a href="/questions/1238606/is-it-necessary-or-useful-to-inherit-from-pythons-object-in-python-3-x" class="question-hyperlink">Is it necessary or useful to inherit from python&#39;s object in Python 3.x?</a>
+</div>
+<div class="spacer">
+<a href="/q/2121481" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">9
+    </div>
+</a><a href="/questions/2121481/python3-http-server-post-example" class="question-hyperlink">Python3 http.server POST example</a>
+</div>
+<div class="spacer">
+<a href="/q/15900366" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="/questions/15900366/all-example-concurrent-futures-code-is-failing-with-brokenprocesspool" class="question-hyperlink">All example concurrent.futures code is failing with &ldquo;BrokenProcessPool&rdquo;</a>
+</div>
+<div class="spacer">
+<a href="/q/20307726" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="/questions/20307726/example-to-throw-a-buffererror" class="question-hyperlink">Example to throw a BufferError</a>
+</div>
+<div class="spacer">
+<a href="/q/21937209" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">-3
+    </div>
+</a><a href="/questions/21937209/an-example-for-add-sub-mul-and-div" class="question-hyperlink">An example for __add__,__sub__,__mul__ and __div__?</a>
+</div>
+<div class="spacer">
+<a href="/q/22789392" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">9
+    </div>
+</a><a href="/questions/22789392/isdecimal-and-isdigit-difference-example" class="question-hyperlink">.isdecimal() and .isdigit difference example</a>
+</div>
+<div class="spacer">
+<a href="/q/25345953" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="/questions/25345953/acquiring-first-available-lock-semaphore-on-python-asyncio" class="question-hyperlink">Acquiring first available lock/semaphore on python asyncio</a>
+</div>
+<div class="spacer">
+<a href="/q/28406124" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="/questions/28406124/semaphore-multiple-pool-locks-in-asyncio-for-1-proxy-aiohttp" class="question-hyperlink">semaphore/multiple pool locks in asyncio for 1 proxy - aiohttp</a>
+</div>
+<div class="spacer">
+<a href="/q/31813959" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">-1
+    </div>
+</a><a href="/questions/31813959/confusion-in-python-tutorial-example" class="question-hyperlink">Confusion in python tutorial example</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="//stackexchange.com/questions?tab=hot" 
+           class="js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li >
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/25242/how-can-a-single-person-with-unlimited-lifetimes-and-persistent-memory-affect-th" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can a single person with unlimited lifetimes and persistent memory affect the world?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/206248/what-does-air-feel-like-to-a-flying-mosquito-in-terms-of-viscosity" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does air &quot;feel&quot; like to a flying mosquito in terms of viscosity?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/68378/is-the-cancer-mage-overpowered" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is the Cancer Mage overpowered?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/32499375/operator-behaves-like-operator" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    &amp;&amp; operator behaves like || operator
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/22050/well-known-quotations" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Well-known quotations
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/94413/what-is-wrong-with-rulecondition-here" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is wrong with RuleCondition here?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-salesforce" title="Salesforce Stack Exchange"></div><a href="http://salesforce.stackexchange.com/questions/92184/return-different-data-type-using-only-one-method" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:459 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Return different data type using only one method
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/25209/would-intelligent-life-evolve-any-other-body-plan-than-humanoid" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Would intelligent life evolve any other body plan than humanoid?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="http://music.stackexchange.com/questions/37681/is-there-any-research-in-music-theory" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any &quot;research&quot; in music theory?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/55584/when-boarding-a-full-plane-how-can-i-guarantee-that-i-can-keep-my-handheld-bagg" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    When boarding a full plane, how can I guarantee that I can keep my handheld baggage with me?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/22057/expert-puzzler-apprentice-movie-maker" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Expert puzzler, apprentice movie-maker
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/189691/can-a-12v-battery-give-you-a-shock-or-not" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can a 12V battery give you a shock or not?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/68368/how-to-justify-my-thematic-spell-selections-to-other-players-saying-theyre-unde" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to justify my thematic spell selections to other players saying they&#39;re underpowered?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/61648/eggs-sticking-to-the-pan" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Eggs sticking to the pan
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/228812/looking-for-posix-utility-to-test-whether-filename-is-a-symlink" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Looking for POSIX utility to test whether filename is a symlink
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/273362/english-translation-for-kock%c3%a1sf%c3%bcl%c5%b1-ny%c3%bal-hungarian" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    English translation for Kock&#225;sf&#252;lÅ± Ny&#250;l (Hungarian)
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/273336/did-courage-to-work-used-to-mean-must-be-willing-to-stay-sober-during-working" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Did &quot;courage to work&quot; used to mean &quot;must be willing to stay sober during working hours&quot;?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-law" title="Law Stack Exchange"></div><a href="http://law.stackexchange.com/questions/3519/consent-to-searches-who-wins-my-word-against-yours" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:617 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Consent to searches: Who wins &quot;my-word-against-yours?&quot;
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/971032/how-to-send-a-tcp-packet-to-a-device-inside-wlan-with-a-local-ip-from-an-externa" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to send a tcp packet to a device inside WLAN with a local IP from an external network?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/25272/what-would-it-take-to-build-a-ship-capable-of-crossing-the-pacific" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What would it take to build a ship capable of crossing the Pacific?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/104343/game-terrain-generation-based-on-images" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Game Terrain Generation based on Images
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/104381/prime-factorization-for-integers-with-up-to-9-digit-long-prime-factors" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Prime factorization for integers with up to 9-digit long prime factors
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-crypto" title="Cryptography Stack Exchange"></div><a href="http://crypto.stackexchange.com/questions/29073/is-there-an-encryption-format-that-preserves-length-and-only-outputs-alphanumeri" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:281 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there an encryption format that preserves length and only outputs alphanumerics?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/54199/after-my-boss-got-transfered-to-a-different-section-said-he-misses-me-everyday" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    After my boss got transfered to a different section, said he misses me everyday
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" 
+           class="show-more js-show-more js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="/feeds/question/15651128" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/15651128/ivc/6b30');});
+</script>
+<noscript>
+    <div><img src="/posts/15651128/ivc/6b30" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-py</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="/tour">tour</a>
+                    <a href="/help">help</a>
+                    <a href="http://blog.stackoverflow.com?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com">chat</a>
+                    <a href="http://data.stackexchange.com">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tr>
+            <th colspan=3>
+                Technology
+            </th>
+            <th >
+                Life / Arts
+            </th>
+            <th >
+                Culture / Recreation
+            </th>
+            <th >
+                Science
+            </th>
+            <th >
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="//security.stackexchange.com" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="//expressionengine.stackexchange.com" title="administrators, end users, developers and designers for ExpressionEngine&#174; CMS">ExpressionEngine&#174; Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="//movies.stackexchange.com" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="//chemistry.stackexchange.com" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="//biology.stackexchange.com" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo &#169; 2015 Stack Exchange Inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.9.10.2807
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');
+                        ga('set', 'dimension2', '|python|python-3.x|');         ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+    </body>
+</html><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>  Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues | Laurent Luce&#039;s Blog</title>
+<meta name="description" content="  Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues" />
+<meta name="keywords" content="  Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues" />
+<link rel="stylesheet" type="text/css" href="http://www.laurentluce.com/wp-content/themes/openark-blog/style.css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.laurentluce.com/feed/" />
+<link rel="pingback" href="http://www.laurentluce.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="Laurent Luce&#039;s Blog &raquo; Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues Comments Feed" href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/www.laurentluce.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.4"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.2 - Universal disabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-12599046-1']);
+	_gaq.push(['_gat._forceSSL']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+<!-- / Google Analytics by Yoast -->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.laurentluce.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.laurentluce.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='OpenStack Nova internals of instance launching' href='http://www.laurentluce.com/posts/openstack-nova-internals-of-instance-launching/' />
+<link rel='next' title='Solving mazes using Python: Simple recursivity and A* search' href='http://www.laurentluce.com/posts/solving-mazes-using-python-simple-recursivity-and-a-search/' />
+<meta name="generator" content="WordPress 4.2.4" />
+<link rel='canonical' href='http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/' />
+<link rel='shortlink' href='http://www.laurentluce.com/?p=241' />
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+</head>
+
+<body>
+<div align="center">
+<div id="wrapper">
+<div id="doc1" class="yui-t4">
+<div id="hd">
+	<div id="sitemeta">
+		<ul>
+     			     			<li><a href="http://www.laurentluce.com/wp-login.php">Log in</a></li>
+     			     			<li class="rss"><a href="http://www.laurentluce.com/feed/">Subscribe RSS Feed</a></li>
+  		</ul>
+	</div>
+	<div id="titlewrapper">
+		<div id="blogtitle">
+			<h1><a href="http://www.laurentluce.com/">Laurent Luce&#039;s Blog</a></h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><div id="blogdescription">Technical blog on web technologies</div></li>
+				<li><a href="http://www.laurentluce.com/">Home</a></li>
+				<li class="page_item page-item-2"><a href="http://www.laurentluce.com/about/">About</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="newsflash">
+                
+	</div>
+	<div class="clear">&nbsp;</div>
+</div>
+
+<div id="sidebar" class="yui-b">
+<ul class="sidebar">
+		<li id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widgettitle">Recent Posts</h2>
+		<ul>
+					<li>
+				<a href="http://www.laurentluce.com/posts/least-frequently-used-cache-eviction-scheme-with-complexity-o1-in-python/">Least frequently used cache eviction scheme with complexity O(1) in Python</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/cambridge-city-geospatial-statistics/">Cambridge city geospatial statistics</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/api-to-access-the-cambridge-city-geospatial-data/">API to access the Cambridge city geospatial data</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/rest-service-python-client-to-access-geographic-data/">REST service + Python client to access geographic data</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/massachusetts-census-2010-towns-maps-and-statistics-using-python/">Massachusetts Census 2010 Towns maps and statistics using Python</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/python-twitter-statistics-and-the-2012-french-presidential-election/">Python, Twitter statistics and the 2012 French presidential election</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/twitter-sentiment-analysis-using-python-and-nltk/">Twitter sentiment analysis using Python and NLTK</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/python-dictionary-implementation/">Python dictionary implementation</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/python-string-objects-implementation/">Python string objects implementation</a>
+						</li>
+					<li>
+				<a href="http://www.laurentluce.com/posts/python-integer-objects-implementation/">Python integer objects implementation</a>
+						</li>
+				</ul>
+		</li>
+<li id="search-3" class="widget widget_search"><h2 class="widgettitle">Search</h2>
+<form method="get" id="searchform" action="http://www.laurentluce.com/">
+<input type="text" size="14" value="" name="s" id="s" class="s" />
+<input type="submit" id="searchsubmit" value="GO" />
+</form></li>
+<li id="meta-3" class="widget widget_meta"><h2 class="widgettitle">Meta</h2>
+			<ul>
+						<li><a href="http://www.laurentluce.com/wp-login.php">Log in</a></li>
+			<li><a href="http://www.laurentluce.com/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://www.laurentluce.com/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</li>
+</ul>
+</div>
+
+<div id="bd" class="single">
+<div id="yui-main"><div class="yui-b">
+	<div class="post-wrap" id="post">
+		<h1 class="post-title"><a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/" rel="bookmark" title="Permanent Link to Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues">Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues</a></h1>
+	                <div>February 5, 2011</div> 
+			<div class="story-content">
+			<p>This article describes the Python threading synchronization mechanisms in details. We are going to study the following types: Lock, RLock, Semaphore, Condition, Event and Queue. Also, we are going to look at the Python internals behind those mechanisms.</p>
+<p>The source code of the programs below can be found at github.com/laurentluce/python-tutorials under threads/.</p>
+<p>First, let&#8217;s look at a simple program using the threading module with no synchronization.</p>
+<h2>Threading</h2>
+<p>We want to write a program fetching the content of some URLs and writing it to a file. We could do it serially with no threads but to speed things up, we are going to create 2 threads processing half of the URLs each.</p>
+<p>Note: The best way here would be to use a queue with the URLs to fetch but this example is more suitable to begin our tutorial.</p>
+<p>The class FetchUrls is thread based and it takes a list of URLs to fetch and a file object to write the content to.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class FetchUrls(threading.Thread):
+    &quot;&quot;&quot;
+    Thread checking URLs.
+    &quot;&quot;&quot;
+
+    def __init__(self, urls, output):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param urls list of urls to check
+        @param output file to write urls output
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.urls = urls
+        self.output = output
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Check URLs one by one.
+        &quot;&quot;&quot;
+        while self.urls:
+            url = self.urls.pop()
+            req = urllib2.Request(url)
+            try:
+                d = urllib2.urlopen(req)
+            except urllib2.URLError, e:
+                print 'URL %s failed: %s' % (url, e.reason)
+            self.output.write(d.read())
+            print 'write done by %s' % self.name
+            print 'URL %s fetched by %s' % (url, self.name)
+</pre>
+<p>The main function starts the 2 threads and then wait for them to finish.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def main():
+    # list 1 of urls to fetch
+    urls1 = ['http://www.google.com', 'http://www.facebook.com']
+    # list 2 of urls to fetch
+    urls2 = ['http://www.yahoo.com', 'http://www.youtube.com']
+    f = open('output.txt', 'w+')
+    t1 = FetchUrls(urls1, f)
+    t2 = FetchUrls(urls2, f)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+    f.close()
+
+if __name__ == '__main__':
+    main()
+</pre>
+<p>The issue is that both threads are going to write to the file at the same time, resulting in a big mess. We need to find a way to only have 1 thread writing to the file at a given time. To do that, one way is to use synchronization mechanisms like locks.</p>
+<h2>Lock</h2>
+<p>Locks have 2 states: locked and unlocked. 2 methods are used to manipulate them: acquire() and release(). Those are the rules:</p>
+<ul>
+<li>if the state is unlocked: a call to acquire() changes the state to locked.</li>
+<li>if the state is locked: a call to acquire() blocks until another thread calls release().</li>
+<li>if the state is unlocked: a call to release() raises a RuntimeError exception.</li>
+<li>if the state is locked: a call to release() changes the state to unlocked().</li>
+</ul>
+<p>To solve our issue of 2 threads writing to the same file at the same time, we pass a lock to the FetchUrls constructor and we use it to protect the file write operation. I am just going to highlight the modifications relevant to locks. The source code can be found in threads/lock.py.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class FetchUrls(threading.Thread):
+    ...
+
+    def __init__(self, urls, output, lock):
+        ...
+        self.lock = lock
+    
+    def run(self):
+        ...
+        while self.urls:
+            ...
+            self.lock.acquire()
+            print 'lock acquired by %s' % self.name
+            self.output.write(d.read())
+            print 'write done by %s' % self.name
+            print 'lock released by %s' % self.name
+            self.lock.release()
+            ...
+
+def main():
+    ...
+    lock = threading.Lock()
+    ...
+    t1 = FetchUrls(urls1, f, lock)
+    t2 = FetchUrls(urls2, f, lock)
+    ...
+</pre>
+<p><img src="/images/blog/threads/lock.png"></p>
+<p>Let&#8217;s look at the program output when we run it:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ python locks.py
+lock acquired by Thread-2
+write done by Thread-2
+lock released by Thread-2
+URL http://www.youtube.com fetched by Thread-2
+lock acquired by Thread-1
+write done by Thread-1
+lock released by Thread-1
+URL http://www.facebook.com fetched by Thread-1
+lock acquired by Thread-2
+write done by Thread-2
+lock released by Thread-2
+URL http://www.yahoo.com fetched by Thread-2
+lock acquired by Thread-1
+write done by Thread-1
+lock released by Thread-1
+URL http://www.google.com fetched by Thread-1
+</pre>
+<p>The write operation is now protected by a lock and we don&#8217;t have 2 threads writing to the file at the same time.</p>
+<p>Let&#8217;s take a look at the Python internals. I am using Python 2.6.6 on Linux.</p>
+<p>The method Lock() of the threading module is equal to thread.allocate_lock. You can see the code in Lib/threading.py.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+Lock = _allocate_lock
+_allocate_lock = thread.allocate_lock
+</pre>
+<p>The C implementation can be found in Python/thread_pthread.h. We assume that our system supports POSIX semaphores. sem_init() initializes the semaphore at the address pointed by lock. The initial value of the semaphore is 1 which means unlocked. The semaphore is shared between the threads of the process.</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+PyThread_type_lock
+PyThread_allocate_lock(void)
+{
+    ...
+    lock = (sem_t *)malloc(sizeof(sem_t));
+
+    if (lock) {
+        status = sem_init(lock,0,1);
+        CHECK_STATUS(&quot;sem_init&quot;);
+        ....
+    }
+    ...
+}
+</pre>
+<p>When the acquire() method is called, the following C code is executed. waitflag is equal to 1 by default which means the call blocks until the lock is unlocked. sem_wait() decrements the semaphore&#8217;s value or blocks until the value is greater than 0 e.g. unlocked by another thread.</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+int
+PyThread_acquire_lock(PyThread_type_lock lock, int waitflag)
+{
+    ...
+    do {
+        if (waitflag)
+            status = fix_status(sem_wait(thelock));
+        else
+            status = fix_status(sem_trywait(thelock));
+    } while (status == EINTR); /* Retry if interrupted by a signal */
+    ....
+}
+</pre>
+<p>When the release() method is called, the following C code is executed. sem_post() increments the semaphore&#8217;s value e.g. unlocks the semaphore.</p>
+<pre class="brush: cpp; title: ; notranslate" title="">
+void
+PyThread_release_lock(PyThread_type_lock lock)
+{
+    ...
+    status = sem_post(thelock);
+    ...
+}
+</pre>
+<p>You can also use the &#8220;with&#8221; statement. The Lock object can be used as a context manager. The advantage of using &#8220;with&#8221; is that the acquire() method will be called when the &#8220;with&#8221; block is entered and release() will be called when the block is exited. Let&#8217;s rewrite the class FetchUrls using the &#8220;with&#8221; statement.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class FetchUrls(threading.Thread):
+    ...
+    def run(self):
+        ...
+        while self.urls:
+            ...
+            with self.lock:
+                print 'lock acquired by %s' % self.name
+                self.output.write(d.read())
+                print 'write done by %s' % self.name
+                print 'lock released by %s' % self.name
+            ...
+</pre>
+<h2>RLock</h2>
+<p>RLock is a reentrant lock. acquire() can be called multiple times by the same thread without blocking. Keep in mind that release() needs to be called the same number of times to unlock the resource.</p>
+<p>Using Lock, the second call to acquire() by the same thread will block:</p>
+<pre class="brush: python; title: ; notranslate" title="">
+lock = threading.Lock()
+lock.acquire()
+lock.acquire()
+</pre>
+<p>If you use RLock, the second call to acquire() won&#8217;t block.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+rlock = threading.RLock()
+rlock.acquire()
+rlock.acquire()
+</pre>
+<p>RLock also uses thread.allocate_lock() but it keeps track of the owner thread to support the reentrant feature. Following is the RLock acquire() method implementation. If the thread calling acquire() is the owner of the resource then the counter is incremented by one. If not, it tries to acquire it. First time it acquires the lock, the owner is saved and the counter is initialized to 1.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def acquire(self, blocking=1):
+    me = _get_ident()
+    if self.__owner == me:
+        self.__count = self.__count + 1
+        ...
+        return 1
+    rc = self.__block.acquire(blocking)
+    if rc:
+        self.__owner = me
+        self.__count = 1
+        ...
+    ...
+    return rc
+</pre>
+<p>Let&#8217;s look at the RLock release() method. First is a check to make sure the thread calling the method is the owner of the lock. The counter is decremented and if it is equal to 0 then the resource is unlocked and available for grab by another thread. </p>
+<pre class="brush: python; title: ; notranslate" title="">
+def release(self):
+    if self.__owner != _get_ident():
+        raise RuntimeError(&quot;cannot release un-acquired lock&quot;)
+    self.__count = count = self.__count - 1
+    if not count:
+        self.__owner = None
+        self.__block.release()
+        ...
+    ...
+</pre>
+<h2>Condition</h2>
+<p>This is a synchronization mechanism where a thread waits for a specific condition and another thread signals that this condition has happened. Once the condition happened, the thread acquires the lock to get exclusive access to the shared resource.</p>
+<p>A good way to illustrate this mechanism is by looking at a producer/consumer example. The producer appends random integers to a list at random time and the consumer retrieves those integers from the list. The source code can be found in threads/condition.py.</p>
+<p>Let&#8217;s look at the producer class. The producer acquires the lock, appends an integer, notifies the consumer thread that there is something to retrieve and release the lock. It does that forever with a random pause in between each append operation.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Producer(threading.Thread):
+    &quot;&quot;&quot;
+    Produces random integers to a list
+    &quot;&quot;&quot;
+
+    def __init__(self, integers, condition):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param condition condition synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.integers = integers
+        self.condition = condition
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Append random integers to the integers list
+        at random time.
+        &quot;&quot;&quot;
+        while True:
+            integer = random.randint(0, 256)
+            self.condition.acquire()
+            print 'condition acquired by %s' % self.name
+            self.integers.append(integer) 
+            print '%d appended to list by %s' % (integer, self.name)
+            print 'condition notified by %s' % self.name
+            self.condition.notify()
+            print 'condition released by %s' % self.name
+            self.condition.release()
+            time.sleep(1)
+</pre>
+<p>Next is the consumer class. It acquires the lock, checks if there is an integer in the list, if there is nothing, it waits to be notified by the producer. Once the element is retrieved from the list, it releases the lock.</p>
+<p>Note that a call to wait() releases the lock so the producer can acquire the resource and do its work.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Consumer(threading.Thread):
+    &quot;&quot;&quot;
+    Consumes random integers from a list
+    &quot;&quot;&quot;
+
+    def __init__(self, integers, condition):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param condition condition synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.integers = integers
+        self.condition = condition
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Consumes integers from list
+        &quot;&quot;&quot;
+        while True:
+            self.condition.acquire()
+            print 'condition acquired by %s' % self.name
+            while True:
+                if self.integers:
+                    integer = self.integers.pop()
+                    print '%d popped from list by %s' % (integer, self.name)
+                    break
+                print 'condition wait by %s' % self.name
+                self.condition.wait()
+            print 'condition released by %s' % self.name
+            self.condition.release()
+</pre>
+<p><img src="/images/blog/threads/condition.png"></p>
+<p>We need to write our main creating 2 threads and starting them:</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def main():
+    integers = []
+    condition = threading.Condition()
+    t1 = Producer(integers, condition)
+    t2 = Consumer(integers, condition)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+
+if __name__ == '__main__':
+    main()
+</pre>
+<p>The output of this program looks like this:</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ python condition.py
+condition acquired by Thread-1
+159 appended to list by Thread-1
+condition notified by Thread-1
+condition released by Thread-1
+condition acquired by Thread-2
+159 popped from list by Thread-2
+condition released by Thread-2
+condition acquired by Thread-2
+condition wait by Thread-2
+condition acquired by Thread-1
+116 appended to list by Thread-1
+condition notified by Thread-1
+condition released by Thread-1
+116 popped from list by Thread-2
+condition released by Thread-2
+condition acquired by Thread-2
+condition wait by Thread-2
+</pre>
+<p>Thread-1 appends 159 to the list then notifies the consumer and releases the lock. Thread-2 acquires the lock, retrieves 159 and releases the lock. The producer is still waiting at that time because of the time.sleep(1) so the consumer acquires the lock again then waits to get notified by the producer. When wait() is called, it unlocks the resource so the producer can acquire it and append a new integer to the list before notifying the consumer.</p>
+<p>Let&#8217;s look at the Python internals for this condition synchronization mechanism. The condition&#8217;s constructor creates a RLock object if no existing lock is passed to the constructor. This lock will be used when acquire() and release() are called.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class _Condition(_Verbose):
+
+    def __init__(self, lock=None, verbose=None):
+        _Verbose.__init__(self, verbose)
+        if lock is None:
+            lock = RLock()
+        self.__lock = lock
+</pre>
+<p>Next is the wait() method. We assume that we are calling wait() with no timeout value to simplify the explanation of the wait() method&#8217;s code. A new lock named waiter is created and the state is set to locked. The waiter lock is used for communication between the threads so the producer can notify the consumer by releasing this waiter lock. The lock object is added to the waiters list and the method is blocking at waiter.acquire(). Note that the condition lock state is saved at the beginning and restored when wait() returns. </p>
+<pre class="brush: python; title: ; notranslate" title="">
+def wait(self, timeout=None):
+    ...
+    waiter = _allocate_lock()
+    waiter.acquire()
+    self.__waiters.append(waiter)
+    saved_state = self._release_save()
+    try:    # restore state no matter what (e.g., KeyboardInterrupt)
+        if timeout is None:
+            waiter.acquire()
+            ...
+        ...
+    finally:
+        self._acquire_restore(saved_state)
+</pre>
+<p>The notify() method is used to release the waiter lock. The producer calls notify() to notify the consumer blocked on wait().</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def notify(self, n=1):
+    ...
+    __waiters = self.__waiters
+    waiters = __waiters[:n]
+    ...
+    for waiter in waiters:
+        waiter.release()
+        try:
+            __waiters.remove(waiter)
+        except ValueError:
+            pass
+</pre>
+<p>You can also use the &#8220;with&#8221; statement with the Condition object so acquire() and release() are called for us. Let&#8217;s rewrite the producer class and the consumer class using &#8220;with&#8221;.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Producer(threading.Thread):
+    ...
+    def run(self):
+        while True:
+            integer = random.randint(0, 256)
+            with self.condition:
+                print 'condition acquired by %s' % self.name
+                self.integers.append(integer) 
+                print '%d appended to list by %s' % (integer, self.name)
+                print 'condition notified by %s' % self.name
+                self.condition.notify()
+                print 'condition released by %s' % self.name
+            time.sleep(1)
+
+class Consumer(threading.Thread):
+    ... 
+    def run(self):
+        while True:
+            with self.condition:
+                print 'condition acquired by %s' % self.name
+                while True:
+                    if self.integers:
+                        integer = self.integers.pop()
+                        print '%d popped from list by %s' % (integer, self.name)
+                        break
+                    print 'condition wait by %s' % self.name
+                    self.condition.wait()
+                print 'condition released by %s' % self.name
+</pre>
+<h2>Semaphore</h2>
+<p>A semaphore is based on an internal counter which is decremented each time acquire() is called and incremented each time release() is called. If the counter is equal to 0 then acquire() blocks. It is the Python implementation of the Dijkstra semaphore concept: P() and V(). Using a semaphore makes sense when you want to control access to a resource with limited capacity like a server.</p>
+<p>Here is a simple example:</p>
+<pre class="brush: python; title: ; notranslate" title="">
+semaphore = threading.Semaphore()
+semaphore.acquire()
+# work on a shared resource
+...
+semaphore.release()
+</pre>
+<p>Let&#8217;s look at the Python internals. The constructor takes a value which is the counter initial value. This value defaults to 1. A condition instance is created with a lock to protect the counter and to notify the other thread when the semaphore is released.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class _Semaphore(_Verbose):
+    ...    
+    def __init__(self, value=1, verbose=None):
+        _Verbose.__init__(self, verbose)
+        self.__cond = Condition(Lock())
+        self.__value = value
+        ...
+</pre>
+<p>Next is the acquire() method. If the semaphore&#8217;s counter is equal to 0, it blocks on the condition&#8217;s wait() method until it gets notified by a different thread. If the semaphore&#8217;s counter is greater than 0, it decrements the value.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def acquire(self, blocking=1):
+    rc = False
+    self.__cond.acquire()
+    while self.__value == 0:
+        ...
+        self.__cond.wait()
+    else:
+        self.__value = self.__value - 1
+        rc = True
+    self.__cond.release()
+    return rc
+</pre>
+<p>The semaphore&#8217;s release() method increments the counter and then notifies the other thread.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def release(self):
+    self.__cond.acquire()
+    self.__value = self.__value + 1
+    self.__cond.notify()
+    self.__cond.release()
+</pre>
+<p>Note that there is also a bounded semaphore you can use to make sure you never call release() too many times. Here is the Python internal code use for it:</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class _BoundedSemaphore(_Semaphore):
+    &quot;&quot;&quot;Semaphore that checks that # releases is &lt;= # acquires&quot;&quot;&quot;
+    def __init__(self, value=1, verbose=None):
+        _Semaphore.__init__(self, value, verbose)
+        self._initial_value = value
+
+    def release(self):
+        if self._Semaphore__value &gt;= self._initial_value:
+            raise ValueError, &quot;Semaphore released too many times&quot;
+        return _Semaphore.release(self)
+</pre>
+<p>You can also use the &#8220;with&#8221; statement with the Semaphore object so acquire() and release() are called for us.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+semaphore = threading.Semaphore()
+with semaphore:
+  # work on a shared resource
+  ...
+</pre>
+<h2>Event</h2>
+<p>This is a simple mechanism. A thread signals an event and the other thread(s) wait for it.</p>
+<p>Let&#8217;s go back to our producer and consumer example and convert it to use an event instead of a condition. The source code can be found in threads/event.py.</p>
+<p>First the producer class. We pass an Event instance to the constructor instead of a Condition instance. Each time an integer is added to the list, the event is set then cleared right away to notify the consumer. The event instance is cleared by default.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Producer(threading.Thread):
+    &quot;&quot;&quot;
+    Produces random integers to a list
+    &quot;&quot;&quot;
+
+    def __init__(self, integers, event):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param event event synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.integers = integers
+        self.event = event
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Append random integers to the integers list
+        at random time.
+        &quot;&quot;&quot;
+        while True:
+            integer = random.randint(0, 256)
+            self.integers.append(integer) 
+            print '%d appended to list by %s' % (integer, self.name)
+            print 'event set by %s' % self.name
+            self.event.set()
+            self.event.clear()
+            print 'event cleared by %s' % self.name
+            time.sleep(1)
+</pre>
+<p>Next is the consumer class. We also pass an Event instance to the constructor. The consumer instance is blocking on wait() until the event is set indicating that there is an integer to consume.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Consumer(threading.Thread):
+    &quot;&quot;&quot;
+    Consumes random integers from a list
+    &quot;&quot;&quot;
+
+    def __init__(self, integers, event):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param event event synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.integers = integers
+        self.event = event
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Consumes integers from list
+        &quot;&quot;&quot;
+        while True:
+            self.event.wait()
+            try:
+                integer = self.integers.pop()
+                print '%d popped from list by %s' % (integer, self.name)
+            except IndexError:
+                # catch pop on empty list
+                time.sleep(1)
+</pre>
+<p><img src="/images/blog/threads/event.png"></p>
+<p>This is the output when we run the program. Thread-1 appends 124 to the list and then set the event to notify the consumer. The consumer&#8217;s call to wait() stops blocking and the integer is retrieved from the list.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ python event.py 
+124 appended to list by Thread-1
+event set by Thread-1
+event cleared by Thread-1
+124 popped from list by Thread-2
+223 appended to list by Thread-1
+event set by Thread-1
+event cleared by Thread-1
+223 popped from list by Thread-2
+</pre>
+<p>Let&#8217;s look at the Python internals. First is the Event constructor. A condition instance is created with a lock to protect the event flag value and to notify the other thread when the event has been set.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class _Event(_Verbose):
+    def __init__(self, verbose=None):
+        _Verbose.__init__(self, verbose)
+        self.__cond = Condition(Lock())
+        self.__flag = False
+</pre>
+<p>Following is the set() method. It sets the flag to True and notifies the other threads. The condition object is used to protect the critical part when the flag&#8217;s value is changed.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def set(self):
+    self.__cond.acquire()
+    try:
+        self.__flag = True
+        self.__cond.notify_all()
+    finally:
+        self.__cond.release()
+</pre>
+<p>Its opposite is the clear() method setting the flag to False.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def clear(self):
+    self.__cond.acquire()
+    try:
+        self.__flag = False
+    finally:
+        self.__cond.release()
+</pre>
+<p>The wait() method blocks until the set method is called. The wait() method does nothing if the flag is set.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def wait(self, timeout=None):
+    self.__cond.acquire()
+    try:
+        if not self.__flag:
+            self.__cond.wait(timeout)
+    finally:
+        self.__cond.release()
+</pre>
+<h2>Queue</h2>
+<p>Queues are a great mechanism when we need to exchange information between threads as it takes care of locking for us.</p>
+<p>We are interested in the following 4 Queue methods:</p>
+<ul>
+<li><b>put:</b> Put an item to the queue.</li>
+<li><b>get:</b> Remove and return an item from the queue.</li>
+<li><b>task_done:</b> Needs to be called each time an item has been processed.</li>
+<li><b>join:</b> Blocks until all items have been processed.</li>
+</ul>
+<p>Let&#8217;s convert our producer/consumer program to use a queue. The source code can be found in threads/queue.py.</p>
+<p>First the producer class. We don&#8217;t need to pass the integers list because we are using the queue to store the integers generated. The thread generates and puts the integers in the queue in a forever loop.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Producer(threading.Thread):
+    &quot;&quot;&quot;
+    Produces random integers to a list
+    &quot;&quot;&quot;
+
+    def __init__(self, queue):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param queue queue synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.queue = queue
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Append random integers to the integers list at
+        random time.
+        &quot;&quot;&quot;
+        while True:
+            integer = random.randint(0, 256)
+            self.queue.put(integer) 
+            print '%d put to queue by %s' % (integer, self.name)
+            time.sleep(1)
+</pre>
+<p>Next is our consumer class. The thread gets the integer from the queue and indicates that it is done working on it using task_done().</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Consumer(threading.Thread):
+    &quot;&quot;&quot;
+    Consumes random integers from a list
+    &quot;&quot;&quot;
+
+    def __init__(self, queue):
+        &quot;&quot;&quot;
+        Constructor.
+
+        @param integers list of integers
+        @param queue queue synchronization object
+        &quot;&quot;&quot;
+        threading.Thread.__init__(self)
+        self.queue = queue
+    
+    def run(self):
+        &quot;&quot;&quot;
+        Thread run method. Consumes integers from list
+        &quot;&quot;&quot;
+        while True:
+            integer = self.queue.get()
+            print '%d popped from list by %s' % (integer, self.name)
+            self.queue.task_done()
+</pre>
+<p>Here is the output of the program.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ python queue.py 
+61 put to queue by Thread-1
+61 popped from list by Thread-2
+6 put to queue by Thread-1
+6 popped from list by Thread-2
+</pre>
+<p>The Queue module takes care of locking for us which is a great advantage. It is interesting to look at the Python internals to understand how the locking mechanism works underneath.</p>
+<p>The Queue constructor creates a lock to protect the queue when an element is added or removed. Some conditions objects are created to notify events like the queue is not empty (get() call stops blocking), queue is not full (put() call stops blocking) and all items have been processed (join() call stops blocking).</p>
+<pre class="brush: python; title: ; notranslate" title="">
+class Queue:
+    def __init__(self, maxsize=0):
+        ...
+        self.mutex = threading.Lock()
+        self.not_empty = threading.Condition(self.mutex)
+        self.not_full = threading.Condition(self.mutex)
+        self.all_tasks_done = threading.Condition(self.mutex)
+        self.unfinished_tasks = 0
+</pre>
+<p>The put() method adds an item or waits if the queue is full. It notifies the threads blocked on get() that the queue is not empty. See above for an explanation on the Condition object for more details.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def put(self, item, block=True, timeout=None):
+    ...
+    self.not_full.acquire()
+    try:
+        if self.maxsize &gt; 0:
+            ...
+            elif timeout is None:
+                while self._qsize() == self.maxsize:
+                    self.not_full.wait()
+        self._put(item)
+        self.unfinished_tasks += 1
+        self.not_empty.notify()
+    finally:
+        self.not_full.release()
+</pre>
+<p>The get() method removes an element from the queue or waits if the queue is empty. It notifies the threads blocked on put() that the queue is not full.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def get(self, block=True, timeout=None):
+    ...
+    self.not_empty.acquire()
+    try:
+        ...
+        elif timeout is None:
+            while not self._qsize():
+                self.not_empty.wait()
+        item = self._get()
+        self.not_full.notify()
+        return item
+    finally:
+        self.not_empty.release()
+</pre>
+<p>When the method task_done() is called, the number of unfinished tasks is decremented. If the counter is equal to 0 then the threads waiting on the queue join() method continue their execution.</p>
+<pre class="brush: python; title: ; notranslate" title="">
+def task_done(self):
+    self.all_tasks_done.acquire()
+    try:
+        unfinished = self.unfinished_tasks - 1
+        if unfinished &lt;= 0:
+            if unfinished &lt; 0:
+                raise ValueError('task_done() called too many times')
+            self.all_tasks_done.notify_all()
+        self.unfinished_tasks = unfinished
+    finally:
+        self.all_tasks_done.release()
+
+def join(self):
+    self.all_tasks_done.acquire()
+    try:
+        while self.unfinished_tasks:
+            self.all_tasks_done.wait()
+    finally:
+        self.all_tasks_done.release()
+</pre>
+<p><img src="/images/blog/threads/queue.png"></p>
+<p>That&#8217;s it for now. I hope you enjoyed this article. Please write a comment if you have any feedback. If you need help with a project written in Python or with building a new web service, I am available as a freelancer: <a href="http://www.linkedin.com/in/lluce">LinkedIn profile</a>. Follow me on Twitter @laurentluce.</p>
+			</div><!-- end post content -->
+		<div class="metawrap">
+		<p>
+			tags: <a href="http://www.laurentluce.com/posts/tag/python/" rel="tag">Python</a><br />			posted in <a href="http://www.laurentluce.com/posts/category/uncategorized/" rel="category tag">Uncategorized</a> by Laurent Luce					</p>
+
+		<p class="interact"> Follow comments via the <a href='http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/feed/'>RSS Feed</a> | <a href="#respond">Leave a comment</a> | <a href="http://www.laurentluce.com/posts/python-threads-synchronization-locks-rlocks-semaphores-conditions-events-and-queues/trackback/">Trackback URL</a> </p>
+		</div><!-- end meta wrap -->
+	</div><!-- end post -->
+
+<!-- You can start editing here. -->
+<div id="commentwrap">
+<h3 id="comments">28 Comments to "Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues"</h3>
+	
+	<ol id="commentlist">
+					<li class="alt" id="comment-2454">
+			<p><img alt='' src='http://2.gravatar.com/avatar/22c7eee5ab2c86b7559d89396b054377?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/22c7eee5ab2c86b7559d89396b054377?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Mark</cite> wrote:</p>
+			<p>Thanks for article.<br />
+Nice diagram usage. Clear and simple.<br />
+What tool did you use ?</p>
+						<p class="commentmetadata"><a href="#comment-2454" title="">Link</a> | February 6th, 2011 at 7:06 am </p>
+		</li>
+					<li class="authorpost" id="comment-2464">
+			<p><img alt='' src='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Laurent Luce</cite> wrote:</p>
+			<p>@Mark: Dia: <a href="http://live.gnome.org/Dia" rel="nofollow">http://live.gnome.org/Dia</a></p>
+						<p class="commentmetadata"><a href="#comment-2464" title="">Link</a> | February 6th, 2011 at 5:12 pm </p>
+		</li>
+					<li class="alt" id="comment-2472">
+			<p><cite><a href='http://zhesto.wordpress.com/2011/02/07/links-for-2011-02-06/' rel='external nofollow' class='url'>links for 2011-02-06 &laquo; Bloggitation</a></cite> wrote:</p>
+			<p>[&#8230;] Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues (tags: python programming)             Categories: Links     LikeBe the first to like this post.   Comments (0) Trackbacks (0) Leave a comment Trackback [&#8230;]</p>
+						<p class="commentmetadata"><a href="#comment-2472" title="">Link</a> | February 6th, 2011 at 11:02 pm </p>
+		</li>
+					<li class="" id="comment-2476">
+			<p><cite><a href='http://www.generateyourmind.com/?p=168' rel='external nofollow' class='url'>Foxconn H67S Review</a></cite> wrote:</p>
+			<p>[&#8230;] Python threads synchronization: Locks, RLocks, Semaphores &#8230; [&#8230;]</p>
+						<p class="commentmetadata"><a href="#comment-2476" title="">Link</a> | February 7th, 2011 at 6:41 am </p>
+		</li>
+					<li class="alt" id="comment-2485">
+			<p><cite><a href='http://donghaima.wordpress.com/2011/02/08/links-for-2011-02-07/' rel='external nofollow' class='url'>links for 2011-02-07 &laquo; Donghai Ma</a></cite> wrote:</p>
+			<p>[&#8230;] Python threads synchronization: Locks, RLocks, Semaphores, Conditions, Events and Queues | Laurent L&#8230; (tags: python threads tutorial programming synchronization) [&#8230;]</p>
+						<p class="commentmetadata"><a href="#comment-2485" title="">Link</a> | February 7th, 2011 at 9:02 pm </p>
+		</li>
+					<li class="" id="comment-2490">
+			<p><cite><a href='http://jimported.wordpress.com/2011/02/08/forums-2/' rel='external nofollow' class='url'>forums | imported</a></cite> wrote:</p>
+			<p>[&#8230;] Python Locks, RLocks, Semaphores, Conditions, Events and Queues (laurentluce.com) [&#8230;]</p>
+						<p class="commentmetadata"><a href="#comment-2490" title="">Link</a> | February 8th, 2011 at 4:11 am </p>
+		</li>
+					<li class="alt" id="comment-2661">
+			<p><img alt='' src='http://1.gravatar.com/avatar/123ef795cce85bad2f7dc75655ceb29f?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/123ef795cce85bad2f7dc75655ceb29f?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>sahil</cite> wrote:</p>
+			<p>Hey Man Thanks for this tutorial, really cleared my basics as far as locks were concerned.</p>
+						<p class="commentmetadata"><a href="#comment-2661" title="">Link</a> | February 17th, 2011 at 10:59 pm </p>
+		</li>
+					<li class="" id="comment-3108">
+			<p><cite><a href='http://www.androidactivesync.com/go-contact-sync-review.html' rel='external nofollow' class='url'>google android activesync, android activesync download | Android Activesync</a></cite> wrote:</p>
+			<p>[&#8230;] Python threads synchronization: Locks, RLocks, Semaphores &#8230; [&#8230;]</p>
+						<p class="commentmetadata"><a href="#comment-3108" title="">Link</a> | March 21st, 2011 at 8:05 am </p>
+		</li>
+					<li class="alt" id="comment-3139">
+			<p><img alt='' src='http://0.gravatar.com/avatar/303f6a190f252cfeac02ee38da171556?s=32&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/303f6a190f252cfeac02ee38da171556?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Subodh Nijsure</cite> wrote:</p>
+			<p>Real nice article Laurent. I am just getting started in Python helped a lot&#8230;</p>
+						<p class="commentmetadata"><a href="#comment-3139" title="">Link</a> | March 23rd, 2011 at 11:24 am </p>
+		</li>
+					<li class="" id="comment-5917">
+			<p><img alt='' src='http://1.gravatar.com/avatar/4bc62892ff83d36dba30b5d50ac12388?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/4bc62892ff83d36dba30b5d50ac12388?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite><a href='http://www.jameslittle.me.uk' rel='external nofollow' class='url'>James</a></cite> wrote:</p>
+			<p>The best article I&#8217;ve found on these different thread sync mechanisms, thanks a lot!</p>
+						<p class="commentmetadata"><a href="#comment-5917" title="">Link</a> | September 7th, 2011 at 1:15 am </p>
+		</li>
+					<li class="alt" id="comment-6730">
+			<p><img alt='' src='http://1.gravatar.com/avatar/70836af9dc752e62575ae6f5972c94dd?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/70836af9dc752e62575ae6f5972c94dd?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Ryo</cite> wrote:</p>
+			<p>It&#8217;s so a nice article!! I really appreciate!<br />
+By the way I have a question.<br />
+The block described &#8220;locked?&#8221; on the flow chart in &#8220;Condition&#8221; Section says that the program goes to next step when &#8220;locked&#8221; is &#8220;yes&#8221;. Is this a mistake?<br />
+Or Am I misunderstanding sth?</p>
+						<p class="commentmetadata"><a href="#comment-6730" title="">Link</a> | October 11th, 2011 at 10:34 pm </p>
+		</li>
+					<li class="authorpost" id="comment-7042">
+			<p><img alt='' src='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Laurent Luce</cite> wrote:</p>
+			<p>@Ryo: Thanks for noticing. You are correct. I updated the diagram.</p>
+						<p class="commentmetadata"><a href="#comment-7042" title="">Link</a> | October 23rd, 2011 at 9:35 pm </p>
+		</li>
+					<li class="alt" id="comment-18411">
+			<p><img alt='' src='http://1.gravatar.com/avatar/7338e868e6b3a7030b5de0f28ee1e820?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/7338e868e6b3a7030b5de0f28ee1e820?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Jimmy Chiang</cite> wrote:</p>
+			<p>I seldom leave comment on blog but I just want to say thank you. Great tutorial and the example source code. This really helps me a lot!</p>
+						<p class="commentmetadata"><a href="#comment-18411" title="">Link</a> | May 1st, 2012 at 4:15 pm </p>
+		</li>
+					<li class="" id="comment-31408">
+			<p><img alt='' src='http://1.gravatar.com/avatar/aa7ef4ad2a8eb586641c7c3fe8435a35?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/aa7ef4ad2a8eb586641c7c3fe8435a35?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>songzhengang</cite> wrote:</p>
+			<p>what&#8217;s different between Condition and Event?</p>
+<p>condition : wait -&gt; notify<br />
+event : wait &#8211; &gt; set</p>
+						<p class="commentmetadata"><a href="#comment-31408" title="">Link</a> | September 12th, 2012 at 2:50 am </p>
+		</li>
+					<li class="authorpost" id="comment-34686">
+			<p><img alt='' src='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a37d0d4170a049c8e4e34c1c34ea8ca6?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Laurent Luce</cite> wrote:</p>
+			<p>@songzhengang: You can use a Condition when the thread is interested in waiting for something to become true, and once it is true, to have exclusive access to some shared resource.</p>
+						<p class="commentmetadata"><a href="#comment-34686" title="">Link</a> | October 17th, 2012 at 10:28 am </p>
+		</li>
+					<li class="alt" id="comment-70744">
+			<p><img alt='' src='http://1.gravatar.com/avatar/a2d9e336336aa8794f92335fcf8c57d7?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/a2d9e336336aa8794f92335fcf8c57d7?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>pythonik</cite> wrote:</p>
+			<p>Excellent tutorial on multithreading and the use of these classes. Very well explained.</p>
+						<p class="commentmetadata"><a href="#comment-70744" title="">Link</a> | April 21st, 2013 at 12:09 am </p>
+		</li>
+					<li class="" id="comment-71205">
+			<p><img alt='' src='http://0.gravatar.com/avatar/097866669f83eec5467c9dabb3c578c6?s=32&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/097866669f83eec5467c9dabb3c578c6?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite><a href='http://vincentjoy.com' rel='external nofollow' class='url'>Vincent Zhang</a></cite> wrote:</p>
+			<p>Great Tutorial. The best python tutorial on thread synchronization that I&#8217;ve read. I really like the way you showed the internal implementation of different methods.</p>
+						<p class="commentmetadata"><a href="#comment-71205" title="">Link</a> | April 23rd, 2013 at 8:40 pm </p>
+		</li>
+					<li class="alt" id="comment-92372">
+			<p><img alt='' src='http://2.gravatar.com/avatar/257912e9ac72bb42e2d30661a2778689?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/257912e9ac72bb42e2d30661a2778689?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite><a href='http://www.gavinj.net' rel='external nofollow' class='url'>Gavin Jackson</a></cite> wrote:</p>
+			<p>Laurent,</p>
+<p>Thanks for your excellent post! I will keep this one bookmarked!</p>
+						<p class="commentmetadata"><a href="#comment-92372" title="">Link</a> | August 4th, 2013 at 11:02 pm </p>
+		</li>
+					<li class="" id="comment-93857">
+			<p><img alt='' src='http://2.gravatar.com/avatar/b8e0c90f3e4d1c2974c9140e92633e56?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b8e0c90f3e4d1c2974c9140e92633e56?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Red Lv</cite> wrote:</p>
+			<p>Really useful to someone like me.<br />
+I wonder whether you haven written something about communication between multi-processed.</p>
+<p>Looking forward to!</p>
+						<p class="commentmetadata"><a href="#comment-93857" title="">Link</a> | August 7th, 2013 at 9:13 pm </p>
+		</li>
+					<li class="alt" id="comment-113076">
+			<p><img alt='' src='http://1.gravatar.com/avatar/15a020c3ae7b9bfac20032228a04b082?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/15a020c3ae7b9bfac20032228a04b082?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Abhi</cite> wrote:</p>
+			<p>Really good article and explanation . Best Article on multithreading with locks . Thanks a lot </p>
+<p>If anyone interested in GIL(Global interpreter lock) here is good explanation </p>
+<p><a href="http://blip.tv/carlfk/mindblowing-python-gil-2243379" rel="nofollow">http://blip.tv/carlfk/mindblowing-python-gil-2243379</a></p>
+						<p class="commentmetadata"><a href="#comment-113076" title="">Link</a> | September 30th, 2013 at 6:23 pm </p>
+		</li>
+					<li class="" id="comment-114337">
+			<p><img alt='' src='http://1.gravatar.com/avatar/47b73a5f3df4ff9c5fcfbe7d9e1c81c3?s=32&#038;d=mm&#038;r=g' srcset='http://1.gravatar.com/avatar/47b73a5f3df4ff9c5fcfbe7d9e1c81c3?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>ccitizen0</cite> wrote:</p>
+			<p>Great article! Thanks!</p>
+						<p class="commentmetadata"><a href="#comment-114337" title="">Link</a> | October 4th, 2013 at 9:06 am </p>
+		</li>
+					<li class="alt" id="comment-345591">
+			<p><img alt='' src='http://2.gravatar.com/avatar/b3af727a938781dfa7d82da5eb259fe2?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/b3af727a938781dfa7d82da5eb259fe2?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>simone</cite> wrote:</p>
+			<p>Straight to the point with very useful snippets of code and diagrams. Well done!</p>
+						<p class="commentmetadata"><a href="#comment-345591" title="">Link</a> | March 8th, 2014 at 6:46 pm </p>
+		</li>
+					<li class="" id="comment-345773">
+			<p><img alt='' src='http://2.gravatar.com/avatar/bc794740da7be37bcfd3ccce8568cea4?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/bc794740da7be37bcfd3ccce8568cea4?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Domenico</cite> wrote:</p>
+			<p>Really useful, thank you!</p>
+						<p class="commentmetadata"><a href="#comment-345773" title="">Link</a> | April 18th, 2014 at 6:38 am </p>
+		</li>
+					<li class="alt" id="comment-345795">
+			<p><img alt='' src='http://0.gravatar.com/avatar/08063055ffffbf0c207be945e0b5a90a?s=32&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/08063055ffffbf0c207be945e0b5a90a?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Jon</cite> wrote:</p>
+			<p>Thanks, this page has the best examples of python multi-threading I could find.</p>
+						<p class="commentmetadata"><a href="#comment-345795" title="">Link</a> | May 11th, 2014 at 2:30 pm </p>
+		</li>
+					<li class="" id="comment-354459">
+			<p><img alt='' src='http://0.gravatar.com/avatar/05a3cb1e8a7b8697609f778e3c3f69a8?s=32&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/05a3cb1e8a7b8697609f778e3c3f69a8?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite><a href='http://linuxandcompany.it' rel='external nofollow' class='url'>Grimli</a></cite> wrote:</p>
+			<p>Hi Laurent,<br />
+many thanks, very useful post</p>
+						<p class="commentmetadata"><a href="#comment-354459" title="">Link</a> | June 1st, 2014 at 11:17 am </p>
+		</li>
+					<li class="alt" id="comment-450705">
+			<p><img alt='' src='http://2.gravatar.com/avatar/820c611835bb6eea4851c318a3b73345?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/820c611835bb6eea4851c318a3b73345?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>laike9m</cite> wrote:</p>
+			<p>Great great explanation!</p>
+						<p class="commentmetadata"><a href="#comment-450705" title="">Link</a> | November 8th, 2014 at 7:11 am </p>
+		</li>
+					<li class="" id="comment-461922">
+			<p><img alt='' src='http://2.gravatar.com/avatar/2885f04c2680872e9b63387ce0429735?s=32&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/2885f04c2680872e9b63387ce0429735?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Gesias</cite> wrote:</p>
+			<p>Great article! Thanks for sharing</p>
+						<p class="commentmetadata"><a href="#comment-461922" title="">Link</a> | January 23rd, 2015 at 7:35 am </p>
+		</li>
+					<li class="alt" id="comment-476816">
+			<p><img alt='' src='http://0.gravatar.com/avatar/9a594b33bf5eb20ec4e69b63f787e5c4?s=32&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/9a594b33bf5eb20ec4e69b63f787e5c4?s=64&amp;d=mm&amp;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' /><cite>Isaac</cite> wrote:</p>
+			<p>Still 100% relevant in 2015. Thanks you for the great writeup and examples.</p>
+						<p class="commentmetadata"><a href="#comment-476816" title="">Link</a> | August 28th, 2015 at 4:23 pm </p>
+		</li>
+		</ol>
+		
+<h3 id="respond">Leave Your Comment</h3>
+		<form action="http://www.laurentluce.com/wp-comments-post.php" method="post" id="commentform">
+					<p><input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+			<label for="author"><small>Name (required)</small></label></p>
+			
+			<p><input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+			<label for="email"><small>Mail (will not be published) (required)</small></label></p>
+			
+			<p><input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+			<label for="url"><small>Website</small></label></p>
+				<!-- to show commenters which tags are allowed, uncomment the line below. -->
+		<!--<p><strong>Allowed (X)HTML:</strong> &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </p>-->
+		<textarea name="comment" id="comment" cols="50" rows="10" tabindex="4"></textarea>
+		<p><input name="submit" type="submit" id="submit" tabindex="5" value="Post Comment" /></p>
+		<input type="hidden" name="comment_post_ID" value="241" />
+		<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="7842aa2611" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="119"/></p>	</form>
+
+</div><!-- end comment wrap --></div>
+</div>
+</div>
+<div id="ft">
+<script type='text/javascript' src='http://www.laurentluce.com/wp-content/plugins/akismet/_inc/form.js?ver=3.1.2'></script>
+<script type='text/javascript' src='http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shCore.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPython.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushBash.js?ver=2.1.364'></script>
+<script type='text/javascript' src='http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushCpp.js?ver=2.1.364'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shCore.css?ver=2.1.364";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeEclipse.css?ver=2.1.364";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://www.laurentluce.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/clipboard.swf';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.all();
+</script>
+</div>
+</div><!-- End id=doc -->
+</div><!-- End id=wrapper -->
+<div class="clear">&nbsp;</div>
+<div id="footnote" align="center">
+	Powered by <a href="http://wordpress.org/">Wordpress</a> and <a href="http://www.mysql.com/">MySQL</a>. Theme by <a href="http://code.openark.org/blog/shlomi-noach">Shlomi Noach</a>, <a href="http://openark.org">openark.org</a>
+</div>
+</div><!-- End align=center -->
+</body>
+</html>
+<!DOCTYPE html><html><head><meta charset="GBK"><meta name="keywords" content="±±ÓÊÈËÂÛÌ³,±±ÓÊÈË,BYR,nforum,±±¾©ÓÊµç´óÑ§,±±ÓÊ,BUPT,ÂÛÌ³,BBS,xw2423" /><meta name="description" content="±±¾©ÓÊµç´óÑ§BBS" /><meta name="author" content="xw2423@BYR" /><title>±±ÓÊÈËÂÛÌ³-±±ÓÊÈËµÄÎÂÜ°¼ÒÔ°</title><link rel="shortcut icon" type="image/x-icon" href="http://static.byr.cn/favicon.ico"><script>if(!location.hash.match(/^#.+$/)) location.href='index';</script><!--[if lt IE 9]><script src="http://static.byr.cn/js/html5.js"></script><![endif]--><link rel="stylesheet" type="text/css" href="http://static.byr.cn/css/pack_b8ba73c843.css" /></head><body><header id="top_head"><aside id="top_menu"><ul><li><a href="/board/Cooperation">ºÏ×÷½»Á÷</a></li><li><a href="/board/BBShelp">ÂÛÌ³°ïÖú</a></li><li><a href="/forum/flink">ÓÑÇéÁ´½Ó</a></li><li><a href="/board/Advice">Òâ¼û½¨Òé</a></li><li><a href="/reset">Íü¼ÇÃÜÂë</a></li></ul></aside><figure id="top_logo"><a href="/default"><img src="http://static.byr.cn/img/logo.gif" /></a></figure><article id="ban_ner"><div id="ban_ner_wrapper"><ul><li><a href="http://bt.byr.cn/green.php" target="_blank"><img src="http://static.byr.cn/files/imgupload/2012-08-26-21-00-17.jpg" alt="&#160;bt" width="600px" height="80px" /></a></li><li><a href="http://c.cn.maysunmedia.com/track/dclk?cid=100074&pid=1001502&rdt=http%3A%2F%2Fwww.189.cn%2Fbj%2Fzthd%2F2015xy%2F" target="_blank"><img src="http://static.byr.cn/files/imgupload/2015-08-25-10-51-56.jpg" alt="ad" width="600px" height="80px" /></a></li></ul></div></article></header><aside id="menu" class="m-hide"><section id="u_login" class="corner"><script id="tmpl_u_login" type="text/template"><form action="/login" method="post" id="u_login_form"><div class="u-login-input"><input type="text" id="u_login_id" class="input-text input" name="id" placeholder="ÓÃ»§Ãû"/></div><div class="u-login-input"><input type="password" id="u_login_passwd" class="input-text input" name="passwd" placeholder="ÃÜÂë"/></div><div class="u-login-check"><input type="checkbox" id="u_login_cookie" name="CookieDate" value="2"/><label for="u_login_cookie">ÏÂ´Î×Ô¶¯µÇÂ¼</label></div><div class="u-login-op"><input type="submit" id="u_login_submit" class="submit" value="µÇÂ¼" /><input class="submit" type="button" value="×¢²á" id="u_login_reg"/></div></form></script><script id="tmpl_u_login_info" type="text/template"><div class="u-login-id"><samp class="ico-pos-cdot"></samp>»¶Ó­<a href="/user/query/<%=id%>" title="<%=id%>"><%=id.length<11?id:(id.substr(0,10)+'...')%></a></div><ul class="u-login-list"><li><a href="/mail" id="m_inbox">ÎÒµÄÊÕ¼þÏä<%if (full_mail){%><span class="new_mail">(Âú!)</span><%}else if(new_mail){%><span class="new_mail">(ÐÂ)</span><%}%></a></li><%if(typeof new_at !== 'undefined' && false !== new_at){%><li><a href="/refer/at" id="m_at">@ÎÒµÄÎÄÕÂ</a><%if(new_at>0){%><span class="new_mail">(<%=new_at%>)</span><%}%></a></li><%}%><%if(typeof new_reply !== 'undefined' && false !== new_reply){%><li><a href="/refer/reply" id="m_reply">»Ø¸´ÎÒµÄÎÄÕÂ</a><%if(new_reply>0){%><span class="new_mail">(<%=new_reply%>)</span><%}%></a></li><%}%><li><a href="/collection" id="u_fav">ÎÒµÄÊÕÂ¼ÎÄÕÂ</a></li><li><a href="/fav" id="u_fav">ÎÒµÄÊÕ²Ø¼Ð</a></li><li><a href="/widget/add">¸öÐÔÊ×Ò³ÉèÖÃ</a></li><li><a href="javascript:void(0)" id="u_login_out">ÍË³öµÇÂ¼</a></li></ul></script></section><div id="left_line"><samp class="ico-pos-hide"></samp></div><nav id="xlist" class="corner"><script id="tmpl_left_nav" type="text/template"><ul><li class="slist"><span class="x-folder"><span class="toggler"></span><a href="javascript:void(0);">È«²¿ÌÖÂÛÇø</a></span><ul class="x-child ajax"><li>{url:/section/ajax_list.json?uid=<%=id%>&root=list-section}</li></ul></li><%if(is_login){ %><li class="flist"><span class="x-folder"><span class="toggler"></span><a href="javascript:void(0);">ÎÒµÄÊÕ²Ø¼Ð</a></span><ul id="list-favor" class="x-child ajax"><li>{url:/favor/ajax_list.json?uid=<%=id%>&root=list-favor}</li></ul></li><%}%><li class="clist"><span class="x-folder"><span class="toggler"></span><a href="javascript:void(0)">¿ØÖÆÃæ°å</a></span><ul class="x-child" id="list-control"><%if(is_login){%><%if(!is_register){%><li class="leaf"><span class="text"><a href="/reg/form"><samp class="ico-pos-dot"></samp>ÌîÐ´×¢²áµ¥</a></span></li><%}%><li class="leaf"><span class="text"><a href="/user/info" ><samp class="ico-pos-dot"></samp>»ù±¾×ÊÁÏÐÞ¸Ä</a></span></li><li class="leaf"><span class="text"><a href="/user/passwd" ><samp class="ico-pos-dot"></samp>êÇ³ÆÃÜÂëÐÞ¸Ä</a></span></li><li class="leaf"><span class="text"><a href="/user/custom" ><samp class="ico-pos-dot"></samp>ÓÃ»§×Ô¶¨Òå²ÎÊý</a></span></li><li class="leaf"><span class="text"><a href="/refer" ><samp class="ico-pos-dot"></samp>ÎÄÕÂÌáÐÑ</a></span></li><li class="leaf"><span class="text"><a href="/friend" ><samp class="ico-pos-dot"></samp>ºÃÓÑ/ºÚÃûµ¥</a></span></li><li class="leaf"><span class="text"><a href="/fav" ><samp class="ico-pos-dot"></samp>ÊÕ²Ø°æÃæ</a></span></li><li class="leaf"><span class="text"><a href="/forum/online" ><samp class="ico-pos-dot"></samp>ÔÚÏßÓÃ»§</a></span></li><%}%><li class="leaf"><span class="text"><a href="/user/query" id="u_query"><samp class="ico-pos-dot"></samp>²éÑ¯ÓÃ»§</a></span></li><li class="leaf"><span class="text"><a href="/s" ><samp class="ico-pos-dot"></samp>ËÑË÷ÎÄÕÂ</a></span></li></ul></li><li><span class="x-leaf"><span class="toggler"></span><a href="http://weibo.com/byrbbs" target="_blank">±±ÓÊÈËÂÛÌ³Î¢²©</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/bmvote">ÓÅÐã°æÖ÷ÆÀÑ¡</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/vote">Í¶Æ±ÏµÍ³</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/bet">¾º²ÂÏµÍ³</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/score">»ý·ÖÏµÍ³</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="http://m.byr.cn" target="_blank">ÊÖ»ú°æ</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/design">±±ÓÊÈËÉè¼Æ</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="/elite/path">¾«»ªÇø</a></span></li><li><span class="x-leaf"><span class="toggler"></span><a href="telnet://bbs.byr.cn" target="_blank">TelnetµÇÂ¼</a></span></li><li><span class="x-leaf x-search"><span class="toggler"></span><input type="text" class="input-text" placeholder="ËÑË÷ÌÖÂÛÇø" id="b_search" x-webkit-speech lang="zh-CN"/></span></li></ul></script></nav><section id="left_adv"><a href="http://e.weibo.com/byrbbs" target="_blank"><img src="http://static.byr.cn/files/imgupload/2013-04-02-17-35-40.jpg" /></a><a href="http://e.weibo.com/buptxueshengchu" target="_blank"><img src="http://static.byr.cn/files/imgupload/2013-04-25-20-48-35.jpg" /></a><a href="http://bbs.byr.cn/article/Focus/39660" target="_blank"><img src="http://static.byr.cn/files/imgupload/2011-03-14-13-52-06.jpg" /></a><a href="http://t.cn/Ryvw5xK" target="_blank"><img src="http://static.byr.cn/files/imgupload/2015-08-25-15-02-26.jpg" /></a><a href="http://bbs.byr.cn/board/JobInfo" target="_blank"><img src="http://static.byr.cn/files/imgupload/2009-11-22-12-15-26.png" /></a></section></aside><section id="main" class="corner"><nav id="notice" class="corner"><div id="notice_nav"><a href="/default">±±ÓÊÈËÂÛÌ³</a></div></nav><section id="body" class="corner"></section></section><div class="clearfix" style="width:100%"></div><footer id="bot_foot"><figure id="bot_logo"><a href="/default"><img src="http://static.byr.cn/img/logo_footer.gif" /></a></figure><aside id='bot_info'>µ±Ç°×Ü¹²<span class="c-total">4316</span>ÈËÔÚÏß:&ensp;×¢²áÓÃ»§<span class="c-user">1676</span>ÈË,·Ã¿Í<span class="c-guest">2640</span>ÈË<br />powered by BYR-Team<span class="copyright">&copy;</span>2009-2015.<br />all rights reserved</aside></footer><figure id="nforum_tips">¼ÓÔØÖÐ..</figure><script id="tmpl_user" type="text/template"><section class="u-query"><%if(id){%><header class="u-name"><span><%=id%></span><%if(session_login){%><a href="/mail/send?id=<%=id%>" id="u_query_mail">·¢ÎÊºòÐÅ</a>|<a href="javascript:void(0)" id="u_query_add">¼ÓÎªºÃÓÑ</a><%}%></header><article class="u-info"><header>»ù±¾ÐÅÏ¢</header><figure><img src="<%-face_url%>"<%if(face_width != 0){%> width="<%=face_width%>px"<%}%><%if(face_height != 0){%> height="<%=face_height%>px"<%}%> /></figure><dl><dt>êÇ ³Æ£º</dt><dd><%-user_name%></dd><%if(id == session_id || !is_hide || session_is_admin){%><dt>ÐÔ ±ð£º</dt><dd><%if(gender=='m'){%>ÄÐÉú<%}else{%>Å®Éú<%}%></dd><dt>ÐÇ ×ù£º</dt><dd><%=astro%></dd><%}%><dt>QQ£º</dt><dd><%-qq%></dd><dt>MSN£º</dt><dd><%-msn%></dd><dt>Ö÷ Ò³£º</dt><dd><%-home_page%></dd></dl></article><div class="clearfix"></div><article class="u-info u-detail"><header>ÂÛÌ³ÊôÐÔ</header><dl class=""><dt>ÂÛÌ³µÈ¼¶£º</dt><dd><%=level%></dd><dt>Ìû×Ó×ÜÊý£º</dt><dd><%=post_count%>Æª</dd><dt>»ý·Ö£º</dt><dd><%=score%></dd><%if(id == session_id || session_is_admin){%><dt>ÓÃ»§Éí·Ý£º</dt><dd><%=role%></dd><dt>µÇÂ½´ÎÊý£º</dt><dd><%=login_count%></dd><%}%><dt>ÉúÃüÁ¦£º</dt><dd><%=life%></dd><%if(id == session_id || session_is_admin){%><dt>×¢²áÊ±¼ä£º</dt><dd><%=first_login_time%></dd><%}%><dt>ÉÏ´ÎµÇÂ¼£º</dt><dd><%=last_login_time%></dd><dt>×îºó·ÃÎÊIP£º</dt><dd><%=last_login_ip%></dd><dt>µ±Ç°×´Ì¬£º</dt><dd><%=status%></dd></dl></article><%}%><footer class="u-search"><form method="get"><label>²éÑ¯ÓÃ»§:</label><input class="input-text" id="u_search_u"type="text" value="" /><input class="button" id="u_query_search" type="submit" value="²éÑ¯" /></form></footer></section></script><script type="text/javascript">var sys_merge={"mWidth":1000,"iframe":false,"allowFrame":"","session":{"timeout":30},"redirect":3,"keyboard":true,"domain":"bbs.byr.cn","cookie_domain":"bbs.byr.cn","base":"","prefix":"nforum","home":"/default","static":"http://static.byr.cn","uid":"guest"};</script><script type="text/javascript" src="http://static.byr.cn/js/pack_6479af08f6.js"></script><script type="text/javascript" src="http://static.byr.cn/sh/scripts/shCore.js"></script><script type="text/javascript" src="http://static.byr.cn/sh/scripts/shAutoloader.js"></script><script>front_startup()</script><!--[if IE 6]><script type="text/javascript" src="http://static.byr.cn/js/letskillie6.zh_CN.js"></script><![endif]--></body></html>
