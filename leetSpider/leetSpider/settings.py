@@ -15,8 +15,15 @@ SPIDER_MODULES = ['leetSpider.spiders']
 NEWSPIDER_MODULE = 'leetSpider.spiders'
 
 ITEM_PIPELINES = {
-    'leetSpider.pipelines.LeetspiderPipeline': 300
+    # 'leetSpider.pipelines.LeetspiderPipeline': 300,
+    # 'leetSpider.pipelines.LintspiderPipeline' : 300,
+    "leetSpider.pipelines.MongoPipeline" : 300,
 }
+
+MONGO_URI = "mongodb://royzxq:leetcode@ds027489.mongolab.com:27489/leetcode"
+MONGO_DATABASE = 'leetcode'
+
+# LOG_ENABLED = False
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'leetSpider (+http://www.yourdomain.com)'
 
