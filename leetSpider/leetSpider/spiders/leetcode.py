@@ -44,10 +44,10 @@ class LeetcodeSpider(scrapy.Spider):
         item['content'] = []
         for des in content:
             text = des.extract()
-            if 'Credits' in text:
+            if 'Credits' in text or 'style' in text:
                 continue
             if text:
-                text = replace(text)
+                # text = replace(text)
                 if text:
                     item['content'].append(text)
         # response.meta['content'] = item['content']

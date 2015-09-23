@@ -39,8 +39,8 @@ class LintcodeSpider(scrapy.Spider):
         content = response.xpath('//div[@id="problem-detail"]/div')
         item = response.meta['item']
         des = content[2].xpath('p').extract()[0]
-        des = replace(des)
-        item["content"] = list()
+        # des = replace(des)
+        # item["content"] = list()
         if des:
             item["content"].append(des)
         return item
