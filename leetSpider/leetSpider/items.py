@@ -16,3 +16,5 @@ class LeetspiderItem(scrapy.Item):
     difficulty = scrapy.Field()
     content = scrapy.Field()
     source = scrapy.Field()
+    tags = scrapy.Field()
+    related = scrapy.Field()

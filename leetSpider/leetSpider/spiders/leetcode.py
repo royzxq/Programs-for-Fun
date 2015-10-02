@@ -26,7 +26,7 @@ class LeetcodeSpider(scrapy.Spider):
             # title = ''.join(title)
             link = response.urljoin(''.join(link))
             difficulty = prob.xpath('td[@value]/text()').extract()
-            item['title'] = title[0]
+            item['title'] = title[0].strip()
             item['link'] = link
             item['difficulty'] = difficulty[0]
             item['source'] = self.name
@@ -39,9 +39,17 @@ class LeetcodeSpider(scrapy.Spider):
     def parse_content(self, response):
         sel = Selector(response)
         content = sel.xpath("//div[@class='question-content']/p")
+        tags = sel.xpath("//div[@class='question-content']//div[@id='tags']/following-sibling::span/a/text()").extract()
+        related = sel.xpath("//div[@class='question-content']//div[@id='similar']/following-sibling::span/a/text()").extract()
         item = response.meta['item']
-        # item = {}
+        
+        for i in xrange(len(related)):
+            related[i] = replace(related[i]).strip()
+            
         item['content'] = []
+        item['tags'] = tags
+        item['related'] = related
+
         for des in content:
             text = des.extract()
             if 'Credits' in text or 'style' in text:

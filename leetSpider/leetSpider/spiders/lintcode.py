@@ -27,7 +27,7 @@ class LintcodeSpider(scrapy.Spider):
             title = prob.xpath("span[@class='m-l-sm title']/text()").extract()
             difficulty = prob.xpath("span[@class='raw_difficulty hide']/text()").extract()
             link = response.urljoin(''.join(link))
-            item['title'] = title[0]
+            item['title'] = title[0].strip()
             item['difficulty'] = diff[str(difficulty[0])]
             item['link'] = link
             item['source'] = self.name
@@ -38,9 +38,17 @@ class LintcodeSpider(scrapy.Spider):
     def parse_content(self, response):
         content = response.xpath('//div[@id="problem-detail"]/div')
         item = response.meta['item']
+        tags = response.xpath('//div[@id="problem-detail"]//a[@class="label bg-success"]/text()').extract()
+        if tags and "LintCodde" in tags[-1]:
+            tags.pop()
+        related = response.xpath('//span[@class="m-l-sm title"]/text()').extract()
+        for i in xrange(len(related)):
+            related[i] = replace(related[i]).strip()
+        item['tags'] = tags
+        item['related'] = related
         des = content[2].xpath('p').extract()[0]
         # des = replace(des)
-        # item["content"] = list()
+        item["content"] = list()
         if des:
             item["content"].append(des)
         return item

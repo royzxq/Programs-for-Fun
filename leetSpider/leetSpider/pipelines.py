@@ -45,7 +45,7 @@ class MongoPipeline(object):
     def process_item(self, item, spider):
 		record = self.db[self.collection_name].find({"title": item['title']})
 		if record.count():
-			self.db[self.collection_name].update_one({"title":item["title"]}, {"$set":{"content": item["content"], "link":item["link"]}})
+			self.db[self.collection_name].update_one({"title":item["title"]}, {"$set":{"content": item["content"], "link":item["link"], "tags":item["tags"], "related":item["related"]}})
 		else:
 			self.db[self.collection_name].insert(dict(item))
 		return item
