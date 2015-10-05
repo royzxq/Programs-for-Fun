@@ -26,7 +26,7 @@ class LeetcodeSpider(scrapy.Spider):
             # title = ''.join(title)
             link = response.urljoin(''.join(link))
             difficulty = prob.xpath('td[@value]/text()').extract()
-            item['title'] = title[0].strip()
+            item['title'] = title[0].strip().replace(' ','_')
             item['link'] = link
             item['difficulty'] = difficulty[0]
             item['source'] = self.name
@@ -44,7 +44,7 @@ class LeetcodeSpider(scrapy.Spider):
         item = response.meta['item']
         
         for i in xrange(len(related)):
-            related[i] = replace(related[i]).strip()
+            related[i] = replace(related[i]).strip().replace(' ','_')
             
         item['content'] = []
         item['tags'] = tags

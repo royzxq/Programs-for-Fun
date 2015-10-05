@@ -27,7 +27,7 @@ class LintcodeSpider(scrapy.Spider):
             title = prob.xpath("span[@class='m-l-sm title']/text()").extract()
             difficulty = prob.xpath("span[@class='raw_difficulty hide']/text()").extract()
             link = response.urljoin(''.join(link))
-            item['title'] = title[0].strip()
+            item['title'] = title[0].strip().replace(' ','_')
             item['difficulty'] = diff[str(difficulty[0])]
             item['link'] = link
             item['source'] = self.name
@@ -43,7 +43,7 @@ class LintcodeSpider(scrapy.Spider):
             tags.pop()
         related = response.xpath('//span[@class="m-l-sm title"]/text()').extract()
         for i in xrange(len(related)):
-            related[i] = replace(related[i]).strip()
+            related[i] = replace(related[i]).strip().replace(' ','_')
         item['tags'] = tags
         item['related'] = related
         des = content[2].xpath('p').extract()[0]

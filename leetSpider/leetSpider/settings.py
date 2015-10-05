@@ -23,7 +23,7 @@ ITEM_PIPELINES = {
 MONGO_URI = "mongodb://royzxq:leetcode@ds027489.mongolab.com:27489/leetcode"
 MONGO_DATABASE = 'leetcode'
 
-# LOG_ENABLED = False
+LOG_ENABLED = False
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'leetSpider (+http://www.yourdomain.com)'
 
