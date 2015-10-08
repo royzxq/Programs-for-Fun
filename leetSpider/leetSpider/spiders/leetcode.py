@@ -52,7 +52,7 @@ class LeetcodeSpider(scrapy.Spider):
 
         for des in content:
             text = des.extract()
-            if 'Credits' in text or 'style' in text:
+            if 'Credits' in text or 'style' in text or 'show hint' in text:
                 continue
             if text:
                 # text = replace(text)
